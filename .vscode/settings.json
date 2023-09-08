@@ -1,0 +1,25 @@
+{
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/*.o": true,
+		"**/*.exe": true,
+	},
+	"files.associations": {
+		"stdio.h": "c",
+		"palla.h": "c",
+		"constants.h": "c",
+		"raymath.h": "c",
+		"raylib.h": "c",
+		"spaceship.h": "c",
+		"type_traits": "c",
+		"*.m": "c",
+		"asteroid.h": "c",
+		"algorithm": "c",
+		"stddef.h": "c",
+		"random": "c"
+	}
+}
