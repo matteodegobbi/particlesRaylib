@@ -45,12 +45,46 @@ int main() {
         for (size_t j = 0; j < CELLS_PER_COLUMN; j++) {
             // gol[i][j] = GetRandomValue(0, sizeof(arrayColors) / sizeof(arrayColors[0]));
             // gol[i][j] = (GetRandomValue(0, 1)&&GetRandomValue(0,1)&&GetRandomValue(0,1));
-            float freq = 0.001;
+            float freq = 0.01;
             float depth = 1;
-            redLevels[i][j] = perlin2d(i, j, freq * 100, depth, seed_red);
-            greenLevels[i][j] = perlin2d(i, j, freq, depth, seed_green);
-            blueLevels[i][j] = perlin2d(i, j, freq*10, depth, seed_blue);
-            alphaLevels[i][j] = 1;//perlin2d(i, j, freq * 10, depth, seed_alpha)/10;
+            float whitestreak = 0;
+
+            redLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, freq, depth, seed_red) * 0.2 + 0.2;
+            greenLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, freq, depth, seed_green) * 0.1;
+            blueLevels[i][j] = perlin2d(i, j, freq, depth, seed_red) ;
+
+            redLevels[i][j] = log2(blueLevels[i][j]*0.2);
+            blueLevels[i][j] = log2(blueLevels[i][j]);
+
+            /*float x, y;
+            if (i > CELLS_PER_ROW / 2) {
+                x = SCREEN_WIDTH - i * CELL_LENGTH;
+            } else {
+                x = i * CELL_LENGTH;
+            }
+
+            if (j > CELLS_PER_COLUMN / 2) {
+                y = SCREEN_HEIGHT - j * CELL_LENGTH;
+            } else {
+                y = j * CELL_LENGTH;
+            }
+            float streak = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, freq, depth, seed_alpha)*0.35f ;
+            float WeightedNearCenter = (1200.0f - (fabs(x - y))) / 800.0f;
+            if ((WeightedNearCenter * streak) > 0.3) {
+                greenLevels[i][j] = redLevels[i][j] = blueLevels[i][j];
+            }
+*/
+
+            /*float whitebase = perlin2d(i*CELL_LENGTH,j*CELL_LENGTH,0.001,15,0)*0.6;
+            blueLevels[i][j] = perlin2d(i, j, freq, depth, seed_blue)+whitebase;
+            redLevels[i][j] = perlin2d(i, j, freq, depth, seed_blue)*0.55+whitebase;*/
+
+            /*blueLevels[i][j] = perlin2d(i, j, freq, depth, seed_blue);
+            redLevels[i][j] = blueLevels[i][j] * 0.55;*/
+
+            /*greenLevels[i][j] = perlin2d(i, j, freq, depth, seed_green) * 0.1+whitebase;*/
+
+            alphaLevels[i][j] = 1;  // perlin2d(i, j, freq, depth, seed_alpha)*0.1+0.9;
         }
     }
 
@@ -74,7 +108,7 @@ static void UpdateDrawFrame(float delta_time) {
         char number2String[100];
         srand(time(NULL));
         int number1 = rand();
-        int number2 = rand();
+        int number2 = time(NULL);
 
         strcpy(filename, "screenshots/screen");
         itoa(number1, number1String, 16);
