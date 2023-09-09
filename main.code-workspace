@@ -12,7 +12,15 @@
 			"stdio.h": "c",
 			"*.m": "c",
 			"constants.h": "c",
-			"raymath.h": "c"
+			"raymath.h": "c",
+			"limits.h": "c",
+			"*.tcc": "c",
+			"limits": "c",
+			"numeric": "c",
+			"streambuf": "c",
+			"tuple": "c",
+			"type_traits": "c",
+			"stdlib.h": "c"
 		}
 	}
 }
