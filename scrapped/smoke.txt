@@ -1,0 +1,36 @@
+accumulatore_i++;
+
+    for (size_t i = 0; i < CELLS_PER_ROW - 1; i++) {
+        for (size_t j = 0; j < CELLS_PER_COLUMN - 1; j++) {
+            // greenLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, 0.01, 5, seed_green);
+            redLevels[i][j] = redLevels[i][j + 1];
+            greenLevels[i][j] = blueLevels[i][j] = redLevels[i][j];
+            alphaLevels[i][j] = alphaLevels[i][j +1];
+        }
+    }
+    for (size_t i = 0; i < CELLS_PER_ROW; i++) {
+        redLevels[i][CELLS_PER_ROW - 1] = perlin2d(
+            (i)*CELL_LENGTH, (accumulatore_i + CELLS_PER_ROW - 1) * CELL_LENGTH, 0.005, 10, seed_red);
+        alphaLevels[i][CELLS_PER_ROW - 1] = perlin2d(
+            (i)*CELL_LENGTH, (accumulatore_i + CELLS_PER_ROW - 1) * CELL_LENGTH, 0.0055, 10, seed_alpha);
+
+        greenLevels[i][CELLS_PER_ROW - 1] = blueLevels[i][CELLS_PER_ROW - 1] =
+            redLevels[i][CELLS_PER_ROW - 1];
+    }
+    // Draw
+    //----------------------------------------------------------------------------------
+
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    for (size_t i = 0; i < CELLS_PER_ROW; i++) {
+        for (size_t j = 0; j < CELLS_PER_COLUMN; j++) {
+            // DrawRectangle(i * CELL_LENGTH, j * CELL_LENGTH, CELL_LENGTH, CELL_LENGTH,
+            // arrayColors[gol[i][j]]);
+            int alpha = (int)(alphaLevels[i][j] * 255);
+            int red = (int)(redLevels[i][j] * 255);
+            int green = (int)(greenLevels[i][j] * 255);
+            int blue = (int)(blueLevels[i][j] * 255);
+            Color noiseRGB = (Color){red, green, blue, alpha};
+            DrawRectangle(i * CELL_LENGTH, j * CELL_LENGTH, CELL_LENGTH, CELL_LENGTH, noiseRGB);
+        }
+    }

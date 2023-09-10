@@ -1,0 +1,61 @@
+int seed_red = GetRandomValue(0, INT_MAX);
+    int seed_blue = GetRandomValue(0, INT_MAX);
+    int seed_green = GetRandomValue(0, INT_MAX);
+    int seed_alpha = GetRandomValue(0, INT_MAX);
+
+
+float freq = 0.001;
+            float depth = 15;
+
+            redLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, freq*2, depth, seed_red);
+            //greenLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, freq, depth, seed_green);
+            //blueLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, freq, depth, seed_blue);
+            //redLevels[i][j] = redLevels[i][j] + blueLevels[i][j];
+            greenLevels[i][j] = blueLevels[i][j] = 0;
+            if (redLevels[i][j] <= 0.5f) {
+                redLevels[i][j] = 0.1;
+                
+                
+                alphaLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, 0.001, depth, seed_alpha);
+                blueLevels[i][j] = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, 0.001, depth, seed_blue)*0.7f+0.3f;
+                greenLevels[i][j] = blueLevels[i][j]-0.3f;;
+                alphaLevels[i][j]=alphaLevels[i][j]*0.1+0.9;
+            } else {
+                
+                greenLevels[i][j] = redLevels[i][j]-0.2f;
+                alphaLevels[i][j]=1;
+            }
+
+            /*redLevels[i][j] = powf(redLevels[i][j],0.5f);
+            blueLevels[i][j] = powf(blueLevels[i][j],0.5f);
+            greenLevels[i][j] = powf(greenLevels[i][j],0.5f);*/
+
+            /*float x, y;
+            if (i > CELLS_PER_ROW / 2) {
+                x = SCREEN_WIDTH - i * CELL_LENGTH;
+            } else {
+                x = i * CELL_LENGTH;
+            }
+
+            if (j > CELLS_PER_COLUMN / 2) {
+                y = SCREEN_HEIGHT - j * CELL_LENGTH;
+            } else {
+                y = j * CELL_LENGTH;
+            }
+            float streak = perlin2d(i * CELL_LENGTH, j * CELL_LENGTH, freq, depth, seed_alpha)*0.35f ;
+            float WeightedNearCenter = (1200.0f - (fabs(x - y))) / 800.0f;
+            if ((WeightedNearCenter * streak) > 0.3) {
+                greenLevels[i][j] = redLevels[i][j] = blueLevels[i][j];
+            }
+*/
+
+            /*float whitebase = perlin2d(i*CELL_LENGTH,j*CELL_LENGTH,0.001,15,0)*0.6;
+            blueLevels[i][j] = perlin2d(i, j, freq, depth, seed_blue)+whitebase;
+            redLevels[i][j] = perlin2d(i, j, freq, depth, seed_blue)*0.55+whitebase;*/
+
+            /*blueLevels[i][j] = perlin2d(i, j, freq, depth, seed_blue);
+            redLevels[i][j] = blueLevels[i][j] * 0.55;*/
+
+            /*greenLevels[i][j] = perlin2d(i, j, freq, depth, seed_green) * 0.1+whitebase;*/
+
+            // alphaLevels[i][j] = 1;  // perlin2d(i, j, freq, depth, seed_alpha)*0.1+0.9;
