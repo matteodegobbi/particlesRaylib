@@ -10,7 +10,7 @@
 #include "raylib.h"
 
 #define SCREEN_WIDTH 1200
-#define SCREEN_HEIGHT 1200
+#define SCREEN_HvEIGHT 1200
 #define CELLS_PER_ROW 1200
 #define CELLS_PER_COLUMN CELLS_PER_ROW
 #define CELL_LENGTH (float)SCREEN_WIDTH / CELLS_PER_ROW
